@@ -4,7 +4,7 @@ async function searchRecipe() {
   recipeList.innerHTML = "Loading...";
 
   try {
-    const res = await fetch(https://www.themealdb.com/api/json/v1/1/search.php?s=${query});
+    const res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`);
     const data = await res.json();
 
     recipeList.innerHTML = "";
@@ -32,14 +32,14 @@ async function searchRecipe() {
 }
 
 async function viewRecipe(id) {
-  const res = await fetch(https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id});
+  const res = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
   const data = await res.json();
   const meal = data.meals[0];
 
   const ingredients = [];
   for (let i = 1; i <= 20; i++) {
-    if (meal[strIngredient${i}]) {
-      ingredients.push(`${meal[strIngredient${i}]} - ${meal[strMeasure${i}]}`);
+    if (meal[`strIngredient${i}`]) {
+      ingredients.push(`${meal[`strIngredient${i}`]} - ${meal[`strMeasure${i}`]}`);
     }
   }
 
@@ -49,10 +49,11 @@ async function viewRecipe(id) {
       <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
       <h2>${meal.strMeal}</h2>
       <h3>Ingredients</h3>
-      <ul>${ingredients.map(ing => <li>${ing}</li>).join('')}</ul>
+      <ul>${ingredients.map(ing => `<li>${ing}</li>`).join('')}</ul>
       <h3>Instructions</h3>
       <p>${meal.strInstructions}</p>
       <button onclick="searchRecipe()">🔙 Back</button>
     </div>
   `;
 }
+
